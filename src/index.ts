@@ -1,15 +1,15 @@
-import fastify from "fastify";
+import Fastify from "fastify";
+import routes from "./routes/index.js";
 
-const server = fastify();
-
-server.get("/ping", async (request, reply) => {
-	return "fkepfko";
+const fastify = Fastify({
+	logger: true,
 });
 
-server.listen({ port: 8080 }, (err, address) => {
+fastify.register(routes);
+
+fastify.listen({ port: 3333 }, (err, address) => {
 	if (err) {
-		console.error(err);
+		fastify.log.error(err);
 		process.exit(1);
 	}
-	console.log(`Server listening at ${address}`);
 });
